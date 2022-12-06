@@ -1,15 +1,15 @@
 {
-  "name": "com.gitpackage.test",
+  "name": "pmk.unity.scriptextensions",
   "version": "0.0.1",
-  "displayName": "Git package test",
-  "description": "This is an test package",
+  "displayName": "Script extension package",
+  "description": "Script extension package for unity and c#",
   "unity": "2019.1",
   "unityRelease": "0b5",
   "dependencies": {
- },
- "keywords": [
-    "virnect",
-    "gitPackage",
+  },
+  "keywords": [
+    "extension",
+    "script",
     "pmk"
   ],
   "author": {

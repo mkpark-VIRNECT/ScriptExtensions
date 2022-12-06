@@ -1,8 +1,8 @@
 {
-  "name": "pmk.unity.scriptextensions",
+  "name": "pmk.unity.devutil",
   "version": "0.0.1",
-  "displayName": "Script extension package",
-  "description": "Script extension package for unity and c#",
+  "displayName": "Unity dev util package",
+  "description": "Unity developing utils like script extension, editor util, etc.. package",
   "unity": "2019.1",
   "unityRelease": "0b5",
   "dependencies": {

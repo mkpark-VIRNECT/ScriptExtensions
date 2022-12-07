@@ -6,20 +6,17 @@ using UnityEngine;
 
 public class FindMissingScriptObjects : MonoBehaviour
 {
-    [HelpBox("Test")]    
+    [HelpBox("1. Select target path with SetPath button\n2. Click crawling button")]    
     public List<Object> missingScriptObjs;
     [ReadOnly]
     public string path;
 
-    [ContextMenu("SetPath")]
-    [Button("ABC")]
+    [Button]
     public void SetPath(AnimationCurve paramC, int paramA, string paramB = "aaa")
     {
-        Debug.Log($"{paramA} {paramB}");
         path = EditorUtility.OpenFolderPanel("Select path to search", "", "");
     }
 
-    //[ContextMenu("Crawling")]
     [Button]
     void Crawling()
     {

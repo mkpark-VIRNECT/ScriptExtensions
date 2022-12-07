@@ -4,19 +4,23 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-[FilePath("..", FilePathAttribute.Location.ProjectFolder)]
 public class FindMissingScriptObjects : MonoBehaviour
 {
+    [HelpBox("Test")]    
     public List<Object> missingScriptObjs;
     [ReadOnly]
     public string path;
+
     [ContextMenu("SetPath")]
-    public void SetPath()
+    [Button("ABC")]
+    public void SetPath(AnimationCurve paramC, int paramA, string paramB = "aaa")
     {
+        Debug.Log($"{paramA} {paramB}");
         path = EditorUtility.OpenFolderPanel("Select path to search", "", "");
     }
 
-    [ContextMenu("Crawling")]
+    //[ContextMenu("Crawling")]
+    [Button]
     void Crawling()
     {
         if(!System.IO.Directory.Exists(path))

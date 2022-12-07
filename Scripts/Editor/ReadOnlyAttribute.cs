@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using System;
 
-#if UNITY_EDITOR
 namespace UnityEditor
 {
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute), true)]
@@ -22,7 +22,6 @@ namespace UnityEditor
         }
     }
 }
-#endif
 
 [AttributeUsage(AttributeTargets.Field)]
 public class ReadOnlyAttribute : PropertyAttribute
@@ -34,3 +33,4 @@ public class ReadOnlyAttribute : PropertyAttribute
         this.runtimeOnly = runtimeOnly;
     }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
 using System.Reflection;
 using System;
@@ -10,21 +11,21 @@ public class ObjectInspector : Editor
     Dictionary<string, bool> parentFoldOutTable = new();
     Dictionary<string, object[]> parameterTable = new();
     GUIStyle foldoutStyle;
-    
+
     public override void OnInspectorGUI ()
     {
         DrawDefaultInspector();
         GUILayout.Space(10);
         SetStyle();
-        
+
         string classKey = target.GetType().FullName;
         if (!parentFoldOutTable.ContainsKey(classKey))
         {
             parentFoldOutTable[classKey] = true;
         }
 
-        parentFoldOutTable[classKey] = EditorGUILayout.BeginToggleGroup("Method Buttons", parentFoldOutTable[classKey]);        
-        if(parentFoldOutTable[classKey])
+        parentFoldOutTable[classKey] = EditorGUILayout.BeginToggleGroup("Method Buttons", parentFoldOutTable[classKey]);
+        if (parentFoldOutTable[classKey])
         {
             var methods = target.GetType().GetRuntimeMethods();
             foreach (var method in methods)
@@ -45,7 +46,7 @@ public class ObjectInspector : Editor
                             if (methodFoldOutTable[key])
                             {
                                 var parameterInfos = method.GetParameters();
-                                if(!parameterTable.ContainsKey(key))
+                                if (!parameterTable.ContainsKey(key))
                                 {
                                     parameterTable[key] = new object[parameterInfos.Length];
                                 }
@@ -71,22 +72,22 @@ public class ObjectInspector : Editor
         EditorGUILayout.EndToggleGroup();
     }
 
-    void SetStyle()
+    void SetStyle ()
     {
         foldoutStyle = EditorStyles.foldoutHeader;
         foldoutStyle.margin = new RectOffset() { left = 18, right = 10 };
     }
 
     void DrawMethodParameter (ParameterInfo parameterInfo, int paramIdx, ref object[] parameters)
-    {        
+    {
         var parameterType = parameterInfo.ParameterType;
         bool hasDefaultValue = parameterInfo.HasDefaultValue;
-        var defaultValue = parameterInfo.DefaultValue;                
+        var defaultValue = parameterInfo.DefaultValue;
         var parameterName = parameterInfo.Name;
 
-        if(parameters[paramIdx] == null)
+        if (parameters[paramIdx] == null)
         {
-            if(hasDefaultValue)
+            if (hasDefaultValue)
             {
                 parameters[paramIdx] = defaultValue;
             }
@@ -105,7 +106,7 @@ public class ObjectInspector : Editor
 
         if (parameterType == typeof(int))
         {
-            parameters[paramIdx] = EditorGUILayout.IntField(parameterName, ( int ) parameters[paramIdx] );
+            parameters[paramIdx] = EditorGUILayout.IntField(parameterName, ( int ) parameters[paramIdx]);
         }
         else if (parameterType == typeof(float))
         {
@@ -117,7 +118,7 @@ public class ObjectInspector : Editor
         }
         else if (parameterType == typeof(string))
         {
-            parameters[paramIdx] = EditorGUILayout.TextField(parameterName, ( string) parameters[paramIdx]);
+            parameters[paramIdx] = EditorGUILayout.TextField(parameterName, ( string ) parameters[paramIdx]);
         }
         else if (parameterType == typeof(Vector2))
         {
@@ -171,8 +172,7 @@ public class ObjectInspector : Editor
         {
             parameters[paramIdx] = EditorGUILayout.RectIntField(parameterName, ( RectInt ) parameters[paramIdx]);
         }
-
-
-
     }
 }
+
+#endif

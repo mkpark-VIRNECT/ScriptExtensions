@@ -12,7 +12,7 @@ public class FindMissingScriptObjects : MonoBehaviour
     public string path;
 
     [Button]
-    public void SetPath(AnimationCurve paramC, int paramA, string paramB = "aaa")
+    public void SetPath()
     {
         path = EditorUtility.OpenFolderPanel("Select path to search", "", "");
     }

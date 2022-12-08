@@ -36,7 +36,7 @@ public class FindMissingScriptObjects : MonoBehaviour
     void Crawling()
     {
         EditorUtility.DisplayProgressBar("Crawling...","crawling now please wait", .5f);
-
+        isProcessing = true;
         if(path.Equals("Empty"))
         {
             Debug.LogError("Select target path first");
@@ -46,6 +46,13 @@ public class FindMissingScriptObjects : MonoBehaviour
         CrawlingRecursive(path);
         Debug.Log($"Crawling finished {missingScriptObjs.Count} mssing script object found ");
         EditorUtility.ClearProgressBar();
+        isProcessing = false;
+    }
+    bool isProcessing = false;
+    private void OnGUI ()
+    {
+        if(isProcessing)
+            EditorUtility.DisplayProgressBar("Crawling...", "crawling now please wait", Random.Range(0,1f));
     }
 
     void CrawlingRecursive(string path)

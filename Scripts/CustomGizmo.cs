@@ -36,6 +36,10 @@ public class CustomGizmo : MonoBehaviour
         Instance.gizmoDrawActions_Consist[a.GetHashCode()] = a;
     }
 
+    public static void DisregistConsistGizmo(Action a)
+    {
+        Instance.gizmoDrawActions_Consist.Remove(a.GetHashCode());
+    }
     private void OnDrawGizmos ()
     {
         for(int i = 0; i < gizmoDrawActions_OneTime.Count; i++)

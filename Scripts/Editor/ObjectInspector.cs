@@ -4,7 +4,7 @@ using UnityEditor;
 using System.Reflection;
 using System;
 using System.Collections.Generic;
-[CustomEditor(typeof(UnityEngine.Object), true)]
+[CustomEditor(typeof(UnityEngine.Object),true)]
 public class ObjectInspector : Editor
 {
     Dictionary<string, bool> methodFoldOutTable = new();
@@ -14,6 +14,8 @@ public class ObjectInspector : Editor
 
     public override void OnInspectorGUI ()
     {
+        if (target is Transform)
+            return;
         DrawDefaultInspector();
         GUILayout.Space(10);
         SetStyle();

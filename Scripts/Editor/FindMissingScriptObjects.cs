@@ -8,26 +8,41 @@ public class FindMissingScriptObjects : MonoBehaviour
 {
     [HelpBox("1. Select target path with SetPath button\n2. Click crawling button")]    
     public List<Object> missingScriptObjs;
-    [ReadOnly]
+    //[ReadOnly]
     public string path;
 
     [Button]
     public void SetPath()
     {
         path = EditorUtility.OpenFolderPanel("Select path to search", "", "");
+        var current = System.IO.Directory.GetCurrentDirectory();
+        current = current.Replace("\\", "/") + "/";
+
+        if (System.IO.Directory.Exists(path))
+        {
+            path = path.Replace(current, "");
+            //if (path[0].Equals('/'))
+            //    path.Remove(0);
+            Debug.Log($"\"{path}\" path is selected");
+        }
+        else
+        {
+            Debug.LogError($"path \"{path}\" is not exist");
+            path = "Empty";
+        }
     }
 
     [Button]
     void Crawling()
     {
-        if(!System.IO.Directory.Exists(path))
+        if(path.Equals("Empty"))
         {
-            Debug.LogError($"path \"{path}\" is not exist");
-            path = "";
+            Debug.LogError("Select target path first");
             return;
         }
         missingScriptObjs = new List<Object>();
         CrawlingRecursive(path);
+        Debug.Log($"Crawling finished {missingScriptObjs.Count} mssing script object found ");        
     }
 
     void CrawlingRecursive(string path)
